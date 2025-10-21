@@ -1,76 +1,76 @@
 public class Problema3 {
-    static int[] aduna(int[] a, int[] b){
-        int n = a.length, t = 0;
-        int[] r = new int[n+1];
-        for (int i = n - 1; i >= 0; i--) {
-            int s = a[i] + b[i] + t;
-            r[i + 1] = s % 10;
-            t = s / 10;
+    static int[] aduna(int[] num1, int[] num2){
+        int len = num1.length, carry = 0;
+        int[] res = new int[len+1];
+        for (int i = len - 1; i >= 0; i--) {
+            int sum = num1[i] + num2[i] + carry;
+            res[i + 1] = sum % 10;
+            carry = sum / 10;
         }
-        r[0] = t;
-        if (r[0] == 0){
-            int[] x = new int[n];
-            for (int i = 0; i < n; i++) x[i] = r[i+1];
-            return x;
+        res[0] = carry;
+        if (res[0] == 0){
+            int[] trimRes = new int[len];
+            for (int i = 0; i < len; i++) trimRes[i] = res[i+1];
+            return trimRes;
         }
-        return r;
+        return res;
     }
-    static int[] scadere(int[] a, int[] b){
-        int n = a.length, d = 0;
-        int[] r = new int[n];
-        for (int i = n - 1; i >= 0; i--) {
-            int x = a[i] - b[i] - d;
-            if (x < 0){
-                x += 10;
-                d = 1;
+    static int[] scadere(int[] num1, int[] num2){
+        int len = num1.length, borrow = 0;
+        int[] res = new int[len];
+        for (int i = len - 1; i >= 0; i--) {
+            int diff = num1[i] - num2[i] - borrow;
+            if (diff < 0){
+                diff += 10;
+                borrow = 1;
             }
-            else d = 0;
-            r[i] = x;
+            else borrow = 0;
+            res[i] = diff;
         }
-        return r;
+        return res;
     }
-    static int[] inmultire(int[] a, int c) {
-        int n = a.length, t = 0;
-        int[] r = new int[n + 1];
-        for (int i = n - 1; i >= 0; i--) {
-            int p = a[i] * c + t;
-            r[i + 1] = p % 10;
-            t = p / 10;
+    static int[] inmultire(int[] num1, int div) {
+        int len = num1.length, carry = 0;
+        int[] res = new int[len + 1];
+        for (int i = len - 1; i >= 0; i--) {
+            int prod = num1[i] * div + carry;
+            res[i + 1] = prod % 10;
+            carry = prod / 10;
         }
-        r[0] = t;
-        if (r[0] == 0) {
-            int[] x = new int[n];
-            for (int i = 0; i < n; i++) x[i] = r[i + 1];
-            return x;
+        res[0] = carry;
+        if (res[0] == 0) {
+            int[] trimRes = new int[len];
+            for (int i = 0; i < len; i++) trimRes[i] = res[i + 1];
+            return trimRes;
         }
-        return r;
+        return res;
     }
-    static int[] impartire(int[] a, int c) {
-        int n = a.length, rest = 0;
-        int[] r = new int[n];
-        for (int i = 0; i < n; i++) {
-            int cur = rest * 10 + a[i];
-            r[i] = cur / c;
-            rest = cur % c;
+    static int[] impartire(int[] num1, int div) {
+        int len = num1.length, rem = 0;
+        int[] res = new int[len];
+        for (int i = 0; i < len; i++) {
+            int curr = rem * 10 + num1[i];
+            res[i] = curr / div;
+            rem = curr % div;
         }
-        return r;
+        return res;
     }
-    static void afis(int[] x) {
-        for (int v : x) System.out.print(v + " ");
+    static void afis(int[] arr) {
+        for (int arrVal : arr) System.out.print(arrVal + " ");
         System.out.println();
     }
 
     public static void main(String[] args) {
-        int[] a = {1,3,0,0,0,0,0,0,0};
-        int[] b = {8,7,0,0,0,0,0,0,0};
-        System.out.print("Suma: "); afis(aduna(a,b));
+        int[] num1a = {1,3,0,0,0,0,0,0,0};
+        int[] num2a = {8,7,0,0,0,0,0,0,0};
+        System.out.print("Suma: "); afis(aduna(num1a,num2a));
 
-        int[] a2 = {8,3,0,0,0,0,0,0,0};
-        int[] b2 = {5,4,0,0,0,0,0,0,0};
-        System.out.print("Diferenta: "); afis(scadere(a2,b2));
+        int[] num1b = {8,3,0,0,0,0,0,0,0};
+        int[] num2b = {5,4,0,0,0,0,0,0,0};
+        System.out.print("Diferenta: "); afis(scadere(num1b,num2b));
 
-        int[] a3 = {2,3,6,0,0,0,0,0,0};
-        System.out.print("Inmultire: "); afis(inmultire(a3,2));
-        System.out.print("Impartire: "); afis(impartire(a3,2));
+        int[] num1c = {2,3,6,0,0,0,0,0,0};
+        System.out.print("Inmultire: "); afis(inmultire(num1c,2));
+        System.out.print("Impartire: "); afis(impartire(num1c,2));
     }
 }
